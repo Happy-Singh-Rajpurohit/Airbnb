@@ -51,10 +51,20 @@ app.get("/listings/:id", async (req, res) => {
 
 //Create Route
 app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
+  const listingData = req.body.listing;
+
+  // Check if image.url is missing or empty, and set default manually
+  if (!listingData.image || !listingData.image.url || listingData.image.url.trim() === "") {
+    listingData.image = {
+      url: "https://images.unsplash.com/photo-1625505826533-5c80aca7d157?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+    };
+  }
+
+  const newListing = new Listing(listingData);
   await newListing.save();
   res.redirect("/listings");
 });
+
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
