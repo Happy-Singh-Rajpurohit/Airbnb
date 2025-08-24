@@ -45,7 +45,7 @@ const validateListing = (req, res, next) => {
 }
 
 //Index Route
-app.get("/listings", validateListing, wrapAsync(async (req, res) => {
+app.get("/listings", wrapAsync(async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
 }));
@@ -56,7 +56,7 @@ app.get("/listings/new", (req, res) => {
 });
 
 //Show Route
-app.get("/listings/:id", validateListing, wrapAsync(async (req, res) => {
+app.get("/listings/:id",  wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/show.ejs", { listing });
@@ -80,7 +80,7 @@ app.post("/listings", validateListing, wrapAsync(async (req, res, next) => {
 
 
 //Edit Route
-app.get("/listings/:id/edit", validateListing, wrapAsync(async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
@@ -103,6 +103,7 @@ app.delete("/listings/:id", validateListing, wrapAsync(async (req, res) => {
 
 app.use((err, req, res, next) => {
   res.send("Something went wrong");
+  console.log(err);
 })
 
 app.listen(8080, () => {
