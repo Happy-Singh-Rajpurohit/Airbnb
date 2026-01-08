@@ -67,8 +67,9 @@ app.get("/demoUser", async (req, res) => {
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  console.log(res.locals.success);
+  res.locals.error = req.flash("error");   //Locals are defined to access as other places in project because only res. is not accessible in ejs files
+  res.locals.currUser = req.user;
+  //console.log(res.locals.success);
   next();
 })
 
