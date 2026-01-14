@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV !== "production"){
+  require("dotenv").config();
+}
 const express = require("express");
 const app = express({mergeParams: true});
 const mongoose = require("mongoose");
@@ -12,7 +15,10 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
-const User = require("./models/user.js");2
+const User = require("./models/user.js");
+const multer = require("multer");
+const { storage } = require("./cloudConfig.js");
+const upload = multer({ storage });
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -37,7 +43,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 const sessionOptions = {
   secret: "mysupersecret",
   resave: false,
-  uninitialized: true,
+  saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7*24*60*60*1000,
     maxAge: 7*24*60*60*1000,
@@ -74,9 +80,9 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hi, I am root");
+// });
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
