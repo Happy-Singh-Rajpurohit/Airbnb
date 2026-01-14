@@ -2,7 +2,7 @@ if(process.env.NODE_ENV !== "production"){
   require("dotenv").config();
 }
 const express = require("express");
-const app = express({mergeParams: true});
+const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -117,7 +117,10 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { message });
 });
 
+const port = process.env.PORT || 8080;
+
+
 // Server start
-app.listen(8080, () => {
+app.listen(port, () => {
   console.log("server is listening to port 8080");
 });
