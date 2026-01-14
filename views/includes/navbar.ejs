@@ -1,3 +1,29 @@
+<style>
+  .btn-search{
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem
+  }
+
+  .btn-search:hover{
+    background-color: #fe424d;
+    color: white;
+  }
+
+  .btn-search i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+
+  .search-input {
+    border: 1px solid #ced4da;
+    border-radius: 25px;
+    padding: 0.375rem 0.75rem;
+    width: 200px;
+  }
+</style>
+
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
 
@@ -15,6 +41,13 @@
       
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input type="search" class="form-contol me-2 search-input" placeholder="Search Destination" aria-label="Search">
+        </form>
+        <button class="btn btn-search"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
       </div>
 
       <div class="navbar-nav ms-auto">
